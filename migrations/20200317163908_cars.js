@@ -1,11 +1,14 @@
 
 exports.up = function(knex) {
     return knex.scheme.createTable("cars", tbl => {
-        tbl
-            .text("VIN", 17)
-            .notNullable()
-            .unique()
-            .index();
+      
+      tbl.increments();
+
+      tbl
+          .text("VIN", 17)
+          .notNullable()
+          .unique()
+          .index();
     })
   
 };

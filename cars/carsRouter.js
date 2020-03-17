@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  const { id } = req.params.VIN;
+ const { id } = req.params;
 
   db("cars")
     .where({ id })
@@ -45,4 +45,17 @@ router.post("/", (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  db("cars")
+  .where("id", id)
+  .del()
+  .then( cars => {
+    res.status(200).json({cars})
+  })
+  .catch(error => {
+    res.status(500).json({ error: "couldnt load cars"})
+  })
+})
 module.exports = router;
