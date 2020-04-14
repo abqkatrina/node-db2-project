@@ -16,7 +16,6 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
  const { id } = req.params;
-
   db("cars")
     .where({ id })
     .first()
@@ -45,14 +44,27 @@ router.post("/", (req, res) => {
     });
 });
 
+router.put("/:id", (req,res) => {
+  const { id } = req.params.id;
+  const { carInfo } = req.body;
+  db("cars")
+  .where("id", id)
+  .update(id , carInfo)
+  .then(carInfo => res.status(200).json(carInfo))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({message: "Failed to update data"})
+  });
+});
+
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
   db("cars")
   .where("id", id)
   .del()
-  .then( cars => {
-    res.status(200).json({cars})
+  .then( car => {
+    res.status(200).json({car})
   })
   .catch(error => {
     res.status(500).json({ error: "couldnt load cars"})
