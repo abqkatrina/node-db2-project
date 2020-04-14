@@ -59,7 +59,6 @@ router.put("/:id", (req,res) => {
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
-
   db("cars")
   .where("id", id)
   .del()
