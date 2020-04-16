@@ -2,7 +2,11 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable("cars", tbl => {
       
-      tbl.increments();
+      tbl
+      .increments("id")
+      .notNullable()
+      .unique()
+      .primary();
 
       tbl
           .text("VIN", 17)
